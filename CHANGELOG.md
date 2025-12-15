@@ -13,8 +13,3 @@ All notable changes to this project will be documented in this file. See [standa
 ### Bug Fixes
 
 * update README for NestJS library rename ([75c95ff](https://github.com/AuthApex/authapex-nestjs/commit/75c95ff5301dafcdfb9a3c64f0c64388adfbcb5c))
-
-### 0.1.0 (2025-08-22)
-
-### Features
-* Initialize project
