@@ -1,6 +1,6 @@
 {
   "name": "@authapex/nestjs",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A core authentification library for AuthApex platform.",
   "bugs": {
     "url": "https://github.com/AuthApex/authapex-nestjs/issues",
