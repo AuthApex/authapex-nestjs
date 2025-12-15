@@ -5,19 +5,21 @@ on:
     tags:
       - 'v*'
 
+permissions:
+  id-token: write
+
 jobs:
   build:
     name: Build Application
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
         with:
-          node-version: 20
-          cache: 'npm'
+          node-version: 24
       - run: npm ci
       - run: npm run build
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v6
         with:
           name: untracked-files
           path: './dist'
@@ -26,17 +28,15 @@ jobs:
     runs-on: ubuntu-latest
     needs: [build]
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
         with:
-          node-version: 20
-          cache: 'npm'
+          node-version: 24
           registry-url: https://registry.npmjs.org/
-      - uses: actions/download-artifact@v4
+      - uses: actions/download-artifact@v7
         with:
           name: untracked-files
           path: './dist'
+      - run: npm install -g npm@latest
       - run: npm publish
         working-directory: ./dist
-        env:
-          NODE_AUTH_TOKEN: ${{secrets.npm_token}}
