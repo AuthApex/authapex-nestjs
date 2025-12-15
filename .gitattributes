@@ -1,0 +1,16 @@
+# This ensures that all files that Git considers to be text will have normalized (LF) line endings in the repository.
+* text=auto eol=lf
+
+
+# Lets keep certificates unmodified
+*.pem binary
+
+## These files are binary and should be left untouched
+## Just to play it safe, here are files we are sure we dont want to be modified by git
+# (binary is a macro for -text -diff)
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.pdf binary

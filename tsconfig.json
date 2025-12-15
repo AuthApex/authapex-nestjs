@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true,
+    "module": "ESNext",
+    "declaration": true,
+    "declarationDir": "./dist/types",
+    "sourceMap": false,
+    "outDir": "dist",
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
+    "emitDeclarationOnly": true,
+    "experimentalDecorators": true,
+    "paths": {
+      "@/*": ["./src/*"]
+    },
+    "typeRoots": ["./node_modules/@types"]
+  },
+  "include": ["src"]
+}
