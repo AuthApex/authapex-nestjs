@@ -19,11 +19,6 @@
       "include": [
         "src/**/*.*"
       ],
-      "exclude": [
-        "src/**/*.stories.*",
-        "src/**/*.core.*",
-        "src/locales/**"
-      ],
       "skipEmptyDir": true,
       "startFrom": "./src",
       "output": "./src",
