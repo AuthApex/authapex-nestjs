@@ -5,6 +5,7 @@ import commonjs from '@rollup/plugin-commonjs';
 import alias from '@rollup/plugin-alias';
 import copy from 'rollup-plugin-copy';
 import del from 'rollup-plugin-delete';
+import json from '@rollup/plugin-json';
 import { dts } from 'rollup-plugin-dts';
 import path from 'path';
 
@@ -21,12 +22,18 @@ export default [
       typescript({ tsconfig: './tsconfig.json' }),
       resolve(),
       commonjs(),
+      json(),
       copy({
         targets: [
           { src: './package.json', dest: 'dist' },
           { src: './README.md', dest: 'dist' },
         ],
       }),
+    ],
+    external: [
+      'mongoose',
+      'reflect-metadata',
+      'rxjs',
     ],
   },
   {
