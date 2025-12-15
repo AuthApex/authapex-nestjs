@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.4](https://github.com/AuthApex/authapex-nestjs/compare/v0.1.3...v0.1.4) (2025-12-15)
+
+
+### Features
+
+* add @rollup/plugin-json and enable decorator metadata in TypeScript ([c2b23fc](https://github.com/AuthApex/authapex-nestjs/commit/c2b23fc30b8e8a5d8114e4df3680aa7a7a516c5e))
+
 ### [0.1.3](https://github.com/AuthApex/authapex-nestjs/compare/v0.1.2...v0.1.3) (2025-12-15)
 
 
