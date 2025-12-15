@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.3](https://github.com/AuthApex/authapex-nestjs/compare/v0.1.2...v0.1.3) (2025-12-15)
+
+
+### Bug Fixes
+
+* update dependencies to support NestJS v11 and Node.js 20 ([37ca6b0](https://github.com/AuthApex/authapex-nestjs/commit/37ca6b0373502df4290c8a61fcd21cdc862e2c22))
+
 ### [0.1.2](https://github.com/AuthApex/authapex-nestjs/compare/v0.1.1...v0.1.2) (2025-12-15)
 
 ### 0.1.1 (2025-12-15)
