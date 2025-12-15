@@ -1,6 +1,6 @@
-# AuthApex Core
+# AuthApex NestJS
 
-A core authentification library for AuthApex platform.
+A NestJS authentification library for AuthApex platform.
 
 [![][npm-version]][npm-url] [![][gitlab-last-release]][npm-url] [![][npm-downloads]][npm-url]
 
@@ -11,10 +11,10 @@ A core authentification library for AuthApex platform.
 * date-fns
 * nanoid
 
-[npm-version]: https://badgen.net/npm/v/@authapex/core?label=version&color=green
-[npm-downloads]: https://badgen.net/npm/dt/@authapex/core
-[npm-url]: https://www.npmjs.com/package/@authapex/core
-[gitlab-last-release]: https://badgen.net/github/release/stanek-r/@authapex/core/babel
+[npm-version]: https://badgen.net/npm/v/@authapex/nestjs?label=version&color=green
+[npm-downloads]: https://badgen.net/npm/dt/@authapex/nestjs
+[npm-url]: https://www.npmjs.com/package/@authapex/nestjs
+[gitlab-last-release]: https://badgen.net/github/release/stanek-r/@authapex/nestjs/babel
 
 ## How to use
 
