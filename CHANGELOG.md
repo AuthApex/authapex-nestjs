@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.5](https://github.com/AuthApex/authapex-nestjs/compare/v0.1.4...v0.1.5) (2026-01-16)
+
+
+### Bug Fixes
+
+* audit ([f7f8576](https://github.com/AuthApex/authapex-nestjs/commit/f7f857607b97c23e6586cc33055dd18773f09d8b))
+* refactor AuthService to use instance properties for services and improve exception handling ([12cc337](https://github.com/AuthApex/authapex-nestjs/commit/12cc337a4ae66af5ea402c4e2312f70066523f95))
+
 ### [0.1.4](https://github.com/AuthApex/authapex-nestjs/compare/v0.1.3...v0.1.4) (2025-12-15)
 
 
