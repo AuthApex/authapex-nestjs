@@ -1,5 +1,5 @@
-import { HttpStatus, Injectable, UnauthorizedException } from '@nestjs/common';
-import { JwtService } from '@nestjs/jwt';
+import { HttpStatus, Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
+import { JwtService, JwtSignOptions } from '@nestjs/jwt';
 import { AuthorizationService, User, UserService } from '@authapex/core';
 import { Response } from 'express';
 import { addMonths, addWeeks, isAfter } from 'date-fns';
@@ -14,24 +14,28 @@ export interface SessionDto {
   expiresAt: string;
 }
 
-const AUTH_URL = process.env.AUTH_URL ?? 'https://id.authapex.net';
-const AUTHORIZATION_SERVICE = new AuthorizationService(
-  AUTH_URL,
-  process.env.APP_NAME,
-  process.env.APP_URL + '/api/auth',
-  process.env.AUTH_API_KEY
-);
-const USER_SERVICE = new UserService(AUTH_URL, process.env.APP_NAME, process.env.AUTH_API_KEY);
-
 @Injectable()
 export class AuthService {
+  private readonly AUTHORIZATION_SERVICE: AuthorizationService;
+  private readonly USER_SERVICE: UserService;
+
   constructor(
     private readonly jwtService: JwtService,
     @InjectModel(Session.name)
     private readonly sessionModel: Model<SessionDocument>,
     @InjectModel(UserData.name)
     private readonly userDataModel: Model<UserDataDocument>
-  ) {}
+  ) {
+    const AUTH_URL = process.env.AUTH_URL ?? 'https://id.authapex.net';
+
+    this.AUTHORIZATION_SERVICE = new AuthorizationService(
+      AUTH_URL,
+      process.env.APP_NAME,
+      process.env.APP_URL + '/api/auth',
+      process.env.AUTH_API_KEY
+    );
+    this.USER_SERVICE = new UserService(AUTH_URL, process.env.APP_NAME, process.env.AUTH_API_KEY);
+  }
 
   async updateUser(userId: string): Promise<void> {
     const userData = await this.userDataModel.findOne({ userId: userId }).exec();
@@ -39,7 +43,7 @@ export class AuthService {
     if (!userData) {
       return;
     }
-    userData.user = await USER_SERVICE.getUpdatedUser(userId);
+    userData.user = await this.USER_SERVICE.getUpdatedUser(userId);
     await userData.save();
   }
 
@@ -48,10 +52,6 @@ export class AuthService {
   }
 
   async getSession(sessionId: string): Promise<string> {
-    const cachedUser = USER_SERVICE.getUserFromCacheBySessionId(sessionId);
-    if (cachedUser) {
-      return cachedUser.userId;
-    }
     const session = await this.sessionModel.findOne({ sessionId: sessionId }).exec();
 
     if (!session) {
@@ -65,7 +65,7 @@ export class AuthService {
   }
 
   async getUserFromSession(sessionId: string): Promise<User> {
-    const cachedUser = USER_SERVICE.getUserFromCacheBySessionId(sessionId);
+    const cachedUser = this.USER_SERVICE.getUserFromCacheBySessionId(sessionId);
     if (cachedUser) {
       return cachedUser;
     }
@@ -74,20 +74,20 @@ export class AuthService {
     if (!userData) {
       throw new UnauthorizedException();
     }
-    USER_SERVICE.addSessionToCache(sessionId, userData.user);
+    this.USER_SERVICE.addSessionToCache(sessionId, userData.user);
     return userData.user;
   }
 
   async getUser(userId: string): Promise<User> {
-    const cachedUser = USER_SERVICE.getUserFromCacheByUserId(userId);
+    const cachedUser = this.USER_SERVICE.getUserFromCacheByUserId(userId);
     if (cachedUser) {
       return cachedUser;
     }
     const userData = await this.userDataModel.findOne({ userId: userId }).exec();
     if (!userData) {
-      throw new UnauthorizedException();
+      throw new NotFoundException();
     }
-    USER_SERVICE.addUserToCache(userData.userId, userData.user);
+    this.USER_SERVICE.addUserToCache(userData.userId, userData.user);
     return userData.user;
   }
 
@@ -110,7 +110,7 @@ export class AuthService {
       {
         expiresIn: process.env.JWT_EXPIRES_IN,
         secret: process.env.JWT_SECRET,
-      }
+      } as JwtSignOptions
     );
 
     res.cookie('session', token, {
@@ -136,7 +136,7 @@ export class AuthService {
   }
 
   async login(authCode: string, res: Response): Promise<void> {
-    const user: User = await AUTHORIZATION_SERVICE.authorize(authCode);
+    const user: User = await this.AUTHORIZATION_SERVICE.authorize(authCode);
 
     const existingUserData = await this.userDataModel.findOne({ userId: user.userId }).exec();
     if (existingUserData == null) {
