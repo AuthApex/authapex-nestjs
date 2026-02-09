@@ -91,6 +91,31 @@ export class AuthService {
     return userData.user;
   }
 
+  async getUsers(userIds: string[]): Promise<Map<string, User>> {
+    const users: Map<string, User> = new Map();
+    const notFoundUserIds: string[] = [];
+
+    for (const userId of userIds) {
+      const cachedUser = this.USER_SERVICE.getUserFromCacheByUserId(userId);
+      if (cachedUser) {
+        users.set(userId, cachedUser);
+      } else {
+        notFoundUserIds.push(userId);
+      }
+    }
+
+    if (notFoundUserIds.length === 0) {
+      return users;
+    }
+
+    const userDatas = await this.userDataModel.find({ userId: { $in: notFoundUserIds } }).exec();
+    for (const userData of userDatas) {
+      this.USER_SERVICE.addUserToCache(userData.userId, userData.user);
+      users.set(userData.userId, userData.user);
+    }
+    return users;
+  }
+
   async createSession(user: User, res: Response): Promise<void> {
     const expiresAt = addMonths(new Date(), 1);
 
