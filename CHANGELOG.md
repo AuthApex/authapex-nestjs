@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.2.0](https://github.com/AuthApex/authapex-nestjs/compare/v0.1.5...v0.2.0) (2026-06-12)
+
+
+### Features
+
+* add getUsers method to AuthService for retrieving users by IDs with caching support ([04f9dc4](https://github.com/AuthApex/authapex-nestjs/commit/04f9dc44ea8c683be4a2e175fee5be8ab411a0c1))
+
+
+### Bug Fixes
+
+* update dependency versions and refactor `AuthService` constructor for improved maintainability ([467ac67](https://github.com/AuthApex/authapex-nestjs/commit/467ac6700fc73344ab5e1fdd2b1bf065731681d6))
+
 ### [0.1.5](https://github.com/AuthApex/authapex-nestjs/compare/v0.1.4...v0.1.5) (2026-01-16)
 
 
