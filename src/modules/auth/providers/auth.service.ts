@@ -28,13 +28,17 @@ export class AuthService {
   ) {
     const AUTH_URL = process.env.AUTH_URL ?? 'https://id.authapex.net';
 
-    this.AUTHORIZATION_SERVICE = new AuthorizationService(
-      AUTH_URL,
-      process.env.APP_NAME,
-      process.env.APP_URL + '/api/auth',
-      process.env.AUTH_API_KEY
-    );
-    this.USER_SERVICE = new UserService(AUTH_URL, process.env.APP_NAME, process.env.AUTH_API_KEY);
+    this.AUTHORIZATION_SERVICE = new AuthorizationService({
+      app: process.env.APP_NAME,
+      authApi: AUTH_URL,
+      apiKey: process.env.AUTH_API_KEY,
+      redirectUrl: process.env.APP_URL + '/api/auth',
+    });
+    this.USER_SERVICE = new UserService({
+      app: process.env.APP_NAME,
+      authApi: AUTH_URL,
+      apiKey: process.env.AUTH_API_KEY,
+    });
   }
 
   async updateUser(userId: string): Promise<void> {
