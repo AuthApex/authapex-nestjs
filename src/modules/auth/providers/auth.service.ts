@@ -194,7 +194,16 @@ export class AuthService {
     res.status(HttpStatus.OK).json({ status: 'success' });
   }
 
-  async getAllUsers(): Promise<UserData[]> {
-    return await this.userDataModel.find().exec();
+  async getAllUsers(): Promise<User[]> {
+    const userDatas = await this.userDataModel.find().exec();
+    return userDatas.map((userData) => userData.user);
+  }
+
+  async getUserByUsername(username: string): Promise<User | null> {
+    const userData = await this.userDataModel.findOne({ 'user.username': username }).exec();
+    if (!userData) {
+      throw new NotFoundException();
+    }
+    return userData.user;
   }
 }
