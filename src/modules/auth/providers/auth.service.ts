@@ -193,4 +193,8 @@ export class AuthService {
     });
     res.status(HttpStatus.OK).json({ status: 'success' });
   }
+
+  async getAllUsers(): Promise<UserData[]> {
+    return await this.userDataModel.find().exec();
+  }
 }
