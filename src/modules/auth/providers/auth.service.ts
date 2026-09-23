@@ -199,7 +199,7 @@ export class AuthService {
     return userDatas.map((userData) => userData.user);
   }
 
-  async getUserByUsername(username: string): Promise<User | null> {
+  async getUserByUsername(username: string): Promise<User> {
     const userData = await this.userDataModel.findOne({ 'user.username': username }).exec();
     if (!userData) {
       throw new NotFoundException();
