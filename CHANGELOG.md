@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.2.1](https://github.com/AuthApex/authapex-nestjs/compare/v0.2.0...v0.2.1) (2026-09-23)
+
+
+### Features
+
+* add getAllUsers method to AuthService to retrieve all users ([b3979a8](https://github.com/AuthApex/authapex-nestjs/commit/b3979a8cebdaacaf93367104726bfc40601f83a2))
+* add getUserByUsername method to AuthService and enhance getAllUsers implementation ([72cffd5](https://github.com/AuthApex/authapex-nestjs/commit/72cffd5bcd258c5bf12b0ef53f15c77ccbe7905e))
+
 ## [0.2.0](https://github.com/AuthApex/authapex-nestjs/compare/v0.1.5...v0.2.0) (2026-06-12)
 
 
